@@ -41,9 +41,10 @@ def trace_diagram(path: Path) -> None:
 def main() -> None:
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output', required=True, type=Path)
+    parser.add_argument('--campaign', type=Path, default=ROOT/'results/host-campaign')
     args = parser.parse_args()
     args.output.mkdir(parents=True, exist_ok=True)
-    summary = json.loads((ROOT/'results/campaign/summary.json').read_text())
+    summary = json.loads((args.campaign/'summary.json').read_text())
     validation = json.loads((ROOT/'results/validation.json').read_text())
     with (args.output/'widths.csv').open('w', newline='') as stream:
         writer = csv.writer(stream)
@@ -68,7 +69,7 @@ def main() -> None:
     write_table(args.output/'timing-table.tex','lrrr',
                 'Method & Median case & Min. case & Max. case',rows)
     rows = []
-    for record in sorted((ROOT/'results/campaign/cases').glob('*.json')):
+    for record in sorted((args.campaign/'cases').glob('*.json')):
         case = json.loads(record.read_text())
         check = case['checker']
         rows.append(' & '.join([case['id'],labels[case['group']],str(case['rounds']),

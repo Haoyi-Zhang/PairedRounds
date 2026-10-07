@@ -23,10 +23,12 @@ interleavings.  Its proof and trust boundary are in `proofs/unrestricted-grid.md
 
 ## Requirements
 
-Use Python 3.10 or later on Linux with only the standard library.  No installation,
+Use Python 3.10 or later on Linux with only the standard library. The paired
+campaign also supports Windows through native job-object limits. No installation,
 network access, GPU, model API, external solver, parent directory, or paper source is
-required.  Each scientific command uses one worker and enforces the artifact's
-300-second and 3-GiB process limits.
+required. Each scientific command uses one worker. POSIX commands enforce
+300-second CPU and 3-GiB address-space limits; the Windows paired campaign
+enforces 300 user-mode CPU seconds and 3-GiB committed-memory limits.
 
 ## Exact reproduction
 
@@ -43,7 +45,7 @@ python tests/pairing_boundary.py results/reproduction-pairing-boundary.json
 python tests/unrestricted_grid.py results/reproduction-unrestricted-grid-validation.json
 python scripts/run_unrestricted_baseline.py results/reproduction-unrestricted-baseline.json
 python scripts/run_campaign.py --output results/reproduction
-python scripts/compare_results.py results/campaign results/reproduction
+python scripts/compare_results.py results/host-campaign results/reproduction
 python scripts/solve.py inputs/stress-04.json results/reproduction-example-certificate.json
 python scripts/check_certificate.py inputs/stress-04.json results/reproduction-example-certificate.json
 python scripts/check_bibliography.py --output results/reproduction-bibliography-integrity.json
@@ -96,7 +98,15 @@ mutation classes are rejected.  A separate transparent two-round example has pai
 optimum 17 and unrestricted optimum 13.
 
 Per-call implementation costs use monotonic elapsed wall time; aggregate process CPU
-is used only for campaign accounting.  The first timing attempt suffered coarse
+is used only for campaign accounting. The paper's timing table uses
+`results/host-campaign`, measured on an Intel Core i7-12700KF, Windows 11 build
+28000 and 64-bit CPython 3.12.14, pinned to logical processor 0. The environment,
+100-ns QueryPerformanceCounter resolution, all raw repetitions and process limits
+are recorded alongside the 36 results. All full frontiers agree with enumeration.
+The campaign costs 3.234375 process CPU seconds and peaks at 33.2 MiB resident
+memory. Earlier campaigns remain separate and are not pooled into the timing
+table because their exact host metadata were not retained.
+The first timing attempt suffered coarse
 process-clock quantization, including zero single-call samples.  Those raw
 observations remain in `results/coarse-clock-observation.json` but are not interpreted
 as zero-cost executions.  Sorting propagation and branch-and-bound are often faster
