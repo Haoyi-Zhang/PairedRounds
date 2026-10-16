@@ -41,6 +41,9 @@ def parse_bib_entries(text: str) -> dict[str, dict[str, str]]:
         if depth:
             raise ValueError(f"unclosed BibTeX entry {key!r}")
         body = text[body_start : cursor - 1]
+        if entry_type == "ieeetranbstctl":
+            pos = cursor
+            continue  # Bibliography formatting control, not a cited work.
         fields: dict[str, str] = {"entry_type": entry_type}
         index = 0
         while index < len(body):

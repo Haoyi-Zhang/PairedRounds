@@ -244,10 +244,11 @@ validation.
 ## Render retained frontier widths
 
 Install `requirements-figures.txt` in a separate plotting environment and use
-`python scripts/plot_retained.py --output-dir /tmp/pairedrounds-figures` with
-an installed pdfLaTeX and the template fonts on PATH. The optional Python
+`python scripts/plot_retained.py --output-dir /tmp/pairedrounds-figures` without
+TeX or an external font installation. The optional Python
 renderer preserves all twelve retained sharp-family depths and both analytic
-reference curves. It runs no scheduling campaign or hardware experiment.
+reference curves. It also renders the event dependencies, separation inequalities
+and the schedule in results/pairing-boundary.json as direct font-embedded vectors. It runs no scheduling campaign or hardware experiment.
 `python -B -S scripts/test_plot_sources.py -v` checks its retained input route
 without plotting dependencies. The repository scanner verifies that Matplotlib
 is explicitly declared and imported inside this plotting CLI, not by the core.

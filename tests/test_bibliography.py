@@ -25,6 +25,10 @@ class BibliographyTests(unittest.TestCase):
     def test_canonical_selection(self) -> None:
         gate.check_records(self.entries, self.selected)
 
+    def test_style_control_is_not_a_reference(self) -> None:
+        controlled = self.text + '\n@IEEEtranBSTCTL{style, CTLdash_repeated_names = {no}}\n'
+        gate.compare_bibliographies(self.entries, gate.parse_bib_entries(controlled))
+
     def test_formatting_does_not_lock_bibliography(self) -> None:
         formatted = gate.parse_bib_entries(self.text.replace("\n", "\n    "))
         key = next(k for k, fields in formatted.items() if fields.get("doi"))
