@@ -3,8 +3,7 @@
 Source: S. H. Sul, S. Arora, B. F. Spector and C. Ré, *ParallelKittens:
 Systematic and Practical Simplification of Multi-GPU AI Kernels*, Proceedings of
 Machine Learning and Systems, vol. 8 (MLSys 2026). The byline lists those four
-authors in that order. This document attributes a public technical source; it does
-not assert collaboration, endorsement, or authorship of this project.
+authors in that order.
 
 The exact substantive version read for model intake was arXiv:2511.13940v1,
 submitted 17 November 2025: https://arxiv.org/abs/2511.13940,
