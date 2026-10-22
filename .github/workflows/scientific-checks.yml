@@ -35,6 +35,7 @@ jobs:
           python -B tests/test_transition_cache.py -v
           python -B tests/test_graph_topology.py -v
           python -B tests/test_import_boundaries.py -v
+          python -B tests/test_grid_boundaries.py -v
           python -B scripts/test_plot_sources.py -v
           python -B tests/validation.py scientific-output/validation.json
           python -B tests/reset_conditions.py scientific-output/reset-conditions.json

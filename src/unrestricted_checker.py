@@ -129,6 +129,7 @@ def check_unrestricted(obj, cert):
                 xy = tuple(number(z) for z in xy_raw)
                 stream = node["stream"]
                 require(type(stream) is int and stream in (1, 2), "node stream")
+                require((stream == 1 and i > 0) or (stream == 2 and j > 0), "stream outside progress boundary")
                 parent_cell = node["parent_cell"]
                 require(isinstance(parent_cell, list) and len(parent_cell) == 2, "parent cell")
                 pi, pj = parent_cell
